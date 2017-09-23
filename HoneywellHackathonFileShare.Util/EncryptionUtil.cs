@@ -18,11 +18,11 @@ namespace HoneywellHackathonFileShare.Util
             return AES_Encrypt(bytesToBeEncrypted, passwordBytes);
         }
 
-        public static byte[] DecryptFile(string fileEncrypted)
+        public static byte[] DecryptFile(byte[] fileEncrypted)
         {
             string password = "abcd1234";
 
-            byte[] bytesToBeDecrypted = File.ReadAllBytes(fileEncrypted);
+            byte[] bytesToBeDecrypted = fileEncrypted;
             byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
             passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
 

@@ -14,7 +14,7 @@ namespace HoneywellHackathonFileShare.Controllers
     {
         [HttpPost]
         //[Route("api/upload")]
-        public IHttpActionResult UploadFile(HttpPostedFileBase selectedFile)
+        public IHttpActionResult UploadFile([FromBody]HttpPostedFileBase selectedFile)
         {
             DocumentManager documentManager = new DocumentManager();
             byte[] fileBytes = new byte[selectedFile.ContentLength];
@@ -51,19 +51,16 @@ namespace HoneywellHackathonFileShare.Controllers
         {
             var stream = new MemoryStream();
 
+            byte[] decryptedFile =  EncryptionUtil.DecryptFile(stream.ToArray());
+
             var result = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new ByteArrayContent(stream.ToArray())
+                Content = new ByteArrayContent(decryptedFile)
             };
 
-            result.Content.Headers.ContentDisposition =
-                new ContentDispositionHeaderValue("attachment")
-                {
-                    FileName = RandomFileName()
-                };
+            result.Content.Headers.ContentDisposition =new ContentDispositionHeaderValue("attachment"){FileName = RandomFileName()};
 
-            result.Content.Headers.ContentType =
-                new MediaTypeHeaderValue("application/octet-stream");
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
             return result;
         }

@@ -8,8 +8,8 @@
     $.connection.hub.start().done(function () {
         $scope.connectionEstablished = "Connected to Signalr Server";
     }).fail(function () {
-        $scope.connectionEstablished ="failed in connecting to the signalr server";
-    })
+        $scope.connectionEstablished = "failed in connecting to the signalr server";
+    });
 
     $scope.files = [];
 
@@ -33,7 +33,7 @@
         $http({
             method: 'POST',
             url: "http://localhost:1782/api/FileManager/UploadFile",
-            headers: { 'Content-Type': application / octet - stream },
+            //headers: { 'Content-Type': 'application/octet-stream' },
 
             transformRequest: function (data) {
                 var formData = new FormData();
@@ -51,7 +51,11 @@
             var data = response;
             // this function handles error
         });
-}
+    }
+
+    $scope.Download = function () {
+
+    };
 
 }]);
 
