@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
+using HoneywellHackathonFileShare.Util;
 
 namespace HoneywellHackathonFileShare.Controllers
 {
@@ -13,25 +14,29 @@ namespace HoneywellHackathonFileShare.Controllers
     {
         [HttpPost]
         [Route("api/upload")]
-        public IHttpActionResult UploadFile(HttpPostedFileBase selectedFile, string password)
+        public IHttpActionResult UploadFile(HttpPostedFileBase selectedFile)
         {
-            byte[] photoBytes = new byte[selectedFile.ContentLength];
+            DocumentManager documentManager = new DocumentManager();
+            byte[] fileBytes = new byte[selectedFile.ContentLength];
             int randIndex = DateTime.Now.Millisecond + new Random(777777).Next();
             try
             {
                 if (selectedFile.InputStream.CanRead)
                 {
                     selectedFile.InputStream.Position = 0;
-                    selectedFile.InputStream.Read(photoBytes, 0, selectedFile.ContentLength);
+                    selectedFile.InputStream.Read(fileBytes, 0, selectedFile.ContentLength);
                 }
 
-                var fileName = selectedFile.FileName + "_" + randIndex;
+                var fname = selectedFile.FileName;
+                fileBytes = CompressionUtil.CompressFile(fileBytes, selectedFile.FileName);
+                fileBytes = EncryptionUtil.EncryptFile(fileBytes);
+
+                var fileName = fname + "_" + randIndex + ".zip";
                 string targetFolder = HttpContext.Current.Server.MapPath("~/Store/Documents");
-                string targetPath = Path.Combine(targetFolder, fileName);
 
-                selectedFile.SaveAs(targetPath);
+                documentManager.SaveFile(fileBytes, fileName, targetFolder);
 
-                return null;
+                return Ok();
             }
             catch (Exception )
             {
@@ -65,6 +70,24 @@ namespace HoneywellHackathonFileShare.Controllers
         private string RandomFileName()
         {
             return DateTime.Now.ToLongTimeString() + ".zip";
+        }
+
+        [HttpPost]
+        public IHttpActionResult CreateDirectory(string room)
+        {
+            var path = HttpContext.Current.Server.MapPath("~/Store/Documents/" + room + "/");
+            Directory.CreateDirectory(path);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public IHttpActionResult DeleteDirectory(string room)
+        {
+            var path = HttpContext.Current.Server.MapPath("~/Store/Documents/" + room + "/");
+            Directory.Delete(path);
+
+            return Ok();
         }
     }
 }
