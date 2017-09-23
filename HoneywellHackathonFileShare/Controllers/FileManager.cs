@@ -10,10 +10,10 @@ using HoneywellHackathonFileShare.Util;
 namespace HoneywellHackathonFileShare.Controllers
 {
     //[Authorize]
-    public class FileManager : ApiController
+    public class FileManagerController : ApiController
     {
         [HttpPost]
-        [Route("api/upload")]
+        //[Route("api/upload")]
         public IHttpActionResult UploadFile(HttpPostedFileBase selectedFile)
         {
             DocumentManager documentManager = new DocumentManager();

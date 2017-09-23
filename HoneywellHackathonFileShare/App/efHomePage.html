@@ -4,10 +4,10 @@
         <label for="browse" class="col-sm-3 control-label">Browse</label>
     </div>
     <div class="col-sm-3">
-        <input type="search" id="searchFile" name="searchFile" class="form-control" ng-model="efBrowseFile"/>
+        <input type="file" id="searchFile" name="searchFile" upload-files multiple />
     </div>
     <div class="col-sm-3">
-        <input type="button" class="btn btn-default" value="Cancel"
+        <input type="button" class="btn btn-default" value="Upload File"
                ng-click="Upload()" />
     </div>
 
