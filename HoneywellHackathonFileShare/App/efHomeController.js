@@ -74,12 +74,16 @@ fileShareApp.controller('efHomeController', ['$scope', '$location', '$http', fun
                     };
                 }
 
-            }
+                }
         };
 
         request.open('POST', "http://localhost:1782/Home/UploadFile");
         request.send(data);
-    }
+}
+
+    $scope.Download = function () {
+
+    };
 
 }]);
 

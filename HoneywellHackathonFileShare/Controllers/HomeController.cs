@@ -29,7 +29,7 @@ namespace HoneywellHackathonFileShare.Controllers
 
                 var fileName = fname + "_" + randIndex + ".zip";
                 string targetFolder = System.Web.HttpContext.Current.Server.MapPath("~/Store/Documents");
-                string tempFolder = System.Web.HttpContext.Current.Server.MapPath("~/Store/Documents");
+                string tempFolder = System.Web.HttpContext.Current.Server.MapPath("~/Store/tempstore");
 
                 //documentManager.SaveFile(fileBytes, fileName, targetFolder, tempFolder, targetFolder);
 
