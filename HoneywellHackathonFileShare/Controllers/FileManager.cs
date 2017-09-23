@@ -9,11 +9,11 @@ using System.Web.Http;
 namespace HoneywellHackathonFileShare.Controllers
 {
     //[Authorize]
-    public class FileManager : ApiController
+    public class FileManagerController : ApiController
     {
         [HttpPost]
-        [Route("api/upload")]
-        public IHttpActionResult UploadFile(HttpPostedFileBase selectedFile, string password)
+        //[Route("api/upload")]
+        public IHttpActionResult UploadFile(HttpPostedFileBase selectedFile)
         {
             byte[] photoBytes = new byte[selectedFile.ContentLength];
             int randIndex = DateTime.Now.Millisecond + new Random(777777).Next();
