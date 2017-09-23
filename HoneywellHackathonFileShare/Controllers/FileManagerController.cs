@@ -9,7 +9,7 @@ using System.Web.Http;
 namespace HoneywellHackathonFileShare.Controllers
 {
     //[Authorize]
-    public class FileManager : ApiController
+    public class FileManagerController : ApiController
     {
         [HttpPost]
         [Route("api/upload")]
@@ -33,7 +33,7 @@ namespace HoneywellHackathonFileShare.Controllers
 
                 return null;
             }
-            catch (Exception )
+            catch (Exception)
             {
                 //logging 
                 return InternalServerError();
@@ -56,6 +56,7 @@ namespace HoneywellHackathonFileShare.Controllers
                 {
                     FileName = RandomFileName()
                 };
+
             result.Content.Headers.ContentType =
                 new MediaTypeHeaderValue("application/octet-stream");
 
