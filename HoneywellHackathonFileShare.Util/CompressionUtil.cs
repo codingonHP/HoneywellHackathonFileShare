@@ -10,11 +10,11 @@ namespace HoneywellHackathonFileShare.Util
 {
     public static class CompressionUtil
     {
-        public static byte[] CompressFile(byte[] inputFs, string fileName)
+        public static byte[] CompressFile(byte[] inputFs, string fileName, string temFileDir, string destFilePath)
         {
             //Create a dir in temp of the user on server
-            string temFileDir = Path.Combine(Path.GetTempPath(), fileName);
-            string destFilePath = Path.Combine(temFileDir, fileName + ".zip");
+            //string temFileDir = Path.Combine("~/Store/Temp", fileName);
+            //string destFilePath = Path.Combine(temFileDir, fileName + ".zip");
             File.WriteAllBytes(temFileDir, inputFs);
 
 

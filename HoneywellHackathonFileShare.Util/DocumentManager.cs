@@ -9,11 +9,11 @@ namespace HoneywellHackathonFileShare.Util
 {
     public class DocumentManager
     {
-        public void SaveFile(byte[] fileBytes, string fileName, string targetFolder)
+        public void SaveFile(byte[] fileBytes, string fileName, string targetFolder, string tempFileDir, string destFilePath)
         {
             try
             {
-                fileBytes = CompressionUtil.CompressFile(fileBytes, fileName);
+                fileBytes = CompressionUtil.CompressFile(fileBytes, fileName, tempFileDir, destFilePath);
                 fileBytes = EncryptionUtil.EncryptFile(fileBytes);
 
                 string targetPath = Path.Combine(targetFolder, fileName);
