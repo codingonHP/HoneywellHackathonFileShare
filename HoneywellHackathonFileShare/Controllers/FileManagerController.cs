@@ -28,6 +28,7 @@ namespace HoneywellHackathonFileShare.Controllers
                 {
                     FileName = RandomFileName()
                 };
+
             result.Content.Headers.ContentType =
                 new MediaTypeHeaderValue("application/octet-stream");
 
