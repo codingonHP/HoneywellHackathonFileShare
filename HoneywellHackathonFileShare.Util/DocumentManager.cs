@@ -9,7 +9,7 @@ namespace HoneywellHackathonFileShare.Util
 {
     public class DocumentManager
     {
-        public void SaveFile(byte[] fileBytes, string fileName, string targetFolder, string tempFileDir, string destFilePath)
+        public string SaveFile(byte[] fileBytes, string fileName, string targetFolder, string tempFileDir, string destFilePath)
         {
             try
             {
@@ -19,6 +19,8 @@ namespace HoneywellHackathonFileShare.Util
                 string targetPath = Path.Combine(targetFolder, fileName);
 
                 File.WriteAllBytes(targetPath, fileBytes);
+
+                return fileName;
             }
             catch (Exception)
             {

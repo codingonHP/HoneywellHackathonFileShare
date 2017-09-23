@@ -31,9 +31,9 @@ namespace HoneywellHackathonFileShare.Controllers
                 string targetFolder = System.Web.HttpContext.Current.Server.MapPath("~/Store/Documents");
                 string tempFolder = System.Web.HttpContext.Current.Server.MapPath("~/Store/tempstore");
 
-                //documentManager.SaveFile(fileBytes, fileName, targetFolder, tempFolder, targetFolder);
+                fileName = documentManager.SaveFile(fileBytes, fileName, targetFolder, tempFolder, targetFolder);
 
-                return Json(new { room = "default", fileName = tempFolder + "/" + fname });
+                return Json(new { room = "default", fileName = "http://localhost:1782/Store/tempstore" + "/" + fileName });
 
             }
             catch (Exception exception)
