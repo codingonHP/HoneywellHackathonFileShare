@@ -51,7 +51,7 @@
             var data = response;
             // this function handles error
         });
-    }
+}
 
 }]);
 

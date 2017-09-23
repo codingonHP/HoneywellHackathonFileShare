@@ -8,7 +8,7 @@ using System.IO;
 
 namespace HoneywellHackathonFileShare.Util
 {
-    static class CompressionUtil
+    public static class CompressionUtil
     {
         public static byte[] CompressFile(byte[] inputFs, string fileName)
         {
