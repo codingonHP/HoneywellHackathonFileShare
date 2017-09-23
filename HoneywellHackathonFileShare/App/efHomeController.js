@@ -25,17 +25,17 @@
         $http({
             method: 'POST',
             url: "http://localhost:1782/api/FileManager/UploadFile",
-            headers: { 'Content-Type': application/octet-stream},
+            //headers: { 'Content-Type': 'application/json'},
 
             transformRequest: function (data) {
                 var formData = new FormData();
-                formData.append("model", angular.toJson(data.model));
-                for (var i = 0; i < data.files.length; i++) {
-                    formData.append("file" + i, data.files[i]);
-                }
+                formData.append("selectedFile", angular.toJson(data.model));
+                //for (var i = 0; i < data.files.length; i++) {
+                    formData.append("file", data);
+                //}
                 return formData;
             },
-            data: { model: $scope.jsonData, files: $scope.files }
+            data: $scope.files[0] 
         }).then(function (response) {
                 var data = response;
                 // This function handles success
