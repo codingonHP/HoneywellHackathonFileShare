@@ -91,7 +91,7 @@ namespace HoneywellHackathonFileShare.Hub
 
         public void SendMessage(string message)
         {
-            Clients.Others.NotifyMessage(message);
+            Clients.All.NotifyMessage(message);
         }
     }
 

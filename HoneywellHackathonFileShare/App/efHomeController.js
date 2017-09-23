@@ -7,7 +7,7 @@ documentHubSignalR.client.notifyFileShare = function (path) {
 }
 
 documentHubSignalR.client.notifyMessage = function (message) {
-    $("#message").append("<div>" + message + "New File Available</div>");
+    $("#message").append("<div>" + message + "</div>");
 }
 
 $(document).on("click", "#btnSubmit", function () {

@@ -1,20 +1,25 @@
 ﻿<!DOCTYPE html>
 <html ng-app="fileShareApp">
 <head>
+    <style>
+        .pullDown{
+            margin-top: 50px;
+            }
+    </style>
     <base href="/">
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/angular-route.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="/signalr/hubs"></script>
     <script src="~/App/app.js"></script>
     <script src="~/App/efHomeController.js"></script>
-    <meta charset="utf-8" />   
+    <meta charset="utf-8"/>
 </head>
 <body class="container">
-    <h1>Start Page</h1>
-    <div ng-view></div>
-    
+<div class="pullDown"></div>
+<div ng-view></div>
+
 </body>
 </html>
