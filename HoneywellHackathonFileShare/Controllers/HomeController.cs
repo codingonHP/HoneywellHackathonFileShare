@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
 using HoneywellHackathonFileShare.Util;
 
@@ -13,7 +12,7 @@ namespace HoneywellHackathonFileShare.Controllers
             return View();
         }
 
-        public ActionResult UploadFile(HttpPostedFileBase selectedFile)
+        public JsonResult UploadFile(HttpPostedFileBase selectedFile)
         {
             DocumentManager documentManager = new DocumentManager();
             byte[] fileBytes = new byte[selectedFile.ContentLength];
@@ -32,9 +31,10 @@ namespace HoneywellHackathonFileShare.Controllers
                 string targetFolder = System.Web.HttpContext.Current.Server.MapPath("~/Store/Documents");
                 string tempFolder = System.Web.HttpContext.Current.Server.MapPath("~/Store/Documents");
 
-                documentManager.SaveFile(fileBytes, fileName, targetFolder, tempFolder, targetFolder);
+                //documentManager.SaveFile(fileBytes, fileName, targetFolder, tempFolder, targetFolder);
 
-                return null;
+                return Json(new { room = "default", fileName = tempFolder + "/" + fname });
+
             }
             catch (Exception exception)
             {

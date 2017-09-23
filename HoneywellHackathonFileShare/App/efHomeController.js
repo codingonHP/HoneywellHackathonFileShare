@@ -1,10 +1,27 @@
-﻿
+﻿// Declare a proxy to reference the hub.
+var documentHubSignalR = $.connection.documentHub;
+var connPromise = $.connection.hub.start();
+
+documentHubSignalR.client.notifyFileShare = function (path) {
+    $("#notifications").append("<div><a href='" + path + "'>New File Available</div>");
+}
+
+documentHubSignalR.client.notifyMessage = function (message) {
+    $("#message").append("<div>" + message + "New File Available</div>");
+}
+
+$(document).on("click", "#btnSubmit", function () {
+        // Start the connection.
+        connPromise.done(function () {
+
+            // Call the Send method on the hub server.
+            documentHubSignalR.server.sendMessage($("#txtMessage").val());
+        });
+    });
+
+
 
 fileShareApp.controller('efHomeController', ['$scope', '$location', '$http', function ($scope, $location, $http) {
-
-    // Declare a proxy to reference the hub.
-    var documentHubSignalR = $.connection.DocumentHub;
-    var connPromise = $.connection.hub.start();
 
     $scope.efBrowseFile = "Click to add File";
     $scope.files = [];
@@ -45,7 +62,8 @@ fileShareApp.controller('efHomeController', ['$scope', '$location', '$http', fun
                         connPromise.done(function () {
 
                             // Call the Send method on the hub server.
-                            documentHubSignalR.server.send(resp.room, resp.fileName);
+                            documentHubSignalR.server.shareFile(resp.room, resp.fileName);
+                            $("#notifications").append("<div><a href='" + resp.fileName + "'>New File Available</div>");
 
                         });
                     }
@@ -65,9 +83,7 @@ fileShareApp.controller('efHomeController', ['$scope', '$location', '$http', fun
 
 }]);
 
-documentHubSignalR.client.notifyFileShare = function (path) {
-    $("#notifications").append("<div><a href='" + path +"'>New File Available</div>");
-}
+
 
 fileShareApp.directive('uploadFiles', function () {
     return {
