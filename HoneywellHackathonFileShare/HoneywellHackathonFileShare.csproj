@@ -1080,7 +1080,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Store\Documents\" />
-    <Folder Include="Store\Temp\" />
+    <Folder Include="Store\tempstore\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
