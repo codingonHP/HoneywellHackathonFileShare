@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal">
+﻿<form class="form-horizontal" enctype="multipart/form-data">
     <br />
     <div class="col-sm-3">
         <label for="browse" class="col-sm-3 control-label">Browse</label>
@@ -10,10 +10,10 @@
         <input type="button" class="btn btn-default" value="Upload File"
                ng-click="Upload()" />
     </div>
-    <label title="msg">{{connectionEstablished}}</label>
+    
+    <div id="notifications">
+        
 
-    <div class="col-sm-3">
-        <input type="button" class="btn btn-default" value="Download File" ng-click="Download()" />
     </div>
 
 </form>

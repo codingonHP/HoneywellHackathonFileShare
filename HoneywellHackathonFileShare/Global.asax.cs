@@ -19,23 +19,8 @@ namespace HoneywellHackathonFileShare
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new CustomIdProvider());
         }
     }
 
-    //public class CustomIdProvider : IUserIdProvider
-    //{
-    //    public string GetUserId(IRequest request)
-    //    {
-    //        Cookie cookie;
-    //        request.Cookies.TryGetValue("_usertoken", out cookie);
-
-    //        if (cookie != null)
-    //        {
-    //            return cookie.Value;
-    //        }
-
-    //        throw new Exception("user not found");
-    //    }
-    //}
+    
 }

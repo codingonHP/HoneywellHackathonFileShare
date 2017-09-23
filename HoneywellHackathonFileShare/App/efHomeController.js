@@ -1,6 +1,5 @@
 ﻿fileShareApp.controller('efHomeController', ['$scope', '$location', '$http', function ($scope, $location, $http) {
 
-    $scope.efBrowseFile = "Click to add File";
 
     hub = $.connection.DocumentHub;
     $scope.connectionEstablished = '';
@@ -11,53 +10,76 @@
         $scope.connectionEstablished = "failed in connecting to the signalr server";
     });
 
+    // Declare a proxy to reference the hub.
+    var documentHubSignalR = $.connection.DocumentHub;
+    var connPromise = $.connection.hub.start();
+
+    $scope.efBrowseFile = "Click to add File";
     $scope.files = [];
 
-    //2. a simple model that want to pass to Web API along with selected files  
+
     $scope.jsonData = {
         name: "supreeth",
         comments: "files"
     };
-    //3. listen for the file selected event which is raised from directive  
+
     $scope.$on("seletedFile", function (event, args) {
         $scope.$apply(function () {
-            //add the file object to the scope's files collection  
+
             $scope.files.push(args.file);
         });
     });
 
-    $scope.Upload = function (data) {
-        var data = document.getElementById('searchFile');
-        var selectedFile = data.files[0];
+    $scope.Upload = function () {
 
-        $http({
-            method: 'POST',
-            url: "http://localhost:1782/api/FileManager/UploadFile",
-            //headers: { 'Content-Type': 'application/octet-stream' },
+        var _file = document.getElementById('searchFile');
+        if (_file.files.length === 0) {
+            return;
+        }
 
-            transformRequest: function (data) {
-                var formData = new FormData();
-                formData.append("model", angular.toJson(data.model));
-                for (var i = 0; i < data.files.length; i++) {
-                    formData.append("file" + i, data.files[i]);
+        var data = new FormData();
+        data.append('selectedFile', _file.files[0]);
+
+        var request = new XMLHttpRequest();
+
+        request.onreadystatechange = function () {
+            if (request.readyState === 4) {
+                try {
+
+                    var resp = JSON.parse(request.response);
+                    if (resp != undefined) {
+
+                        // Start the connection.
+                        connPromise.done(function () {
+
+                            // Call the Send method on the hub server.
+                            documentHubSignalR.server.send(resp.room, resp.fileName);
+
+                        });
+                    }
+                } catch (e) {
+                    var resp = {
+                        status: 'error',
+                        data: 'Unknown error occurred: [' + request.responseText + ']'
+                    };
                 }
-                return formData;
-            },
-            data: { model: $scope.jsonData, files: $scope.files }
-        }).then(function (response) {
-            var data = response;
-            // This function handles success
-        }, function (response) {
-            var data = response;
-            // this function handles error
-        });
-    }
+
+                }
+        };
+
+        request.open('POST', "http://localhost:1782/Home/UploadFile");
+        request.send(data);
+}
 
     $scope.Download = function () {
 
     };
 
 }]);
+
+documentHubSignalR.client.notifyFileShare = function (path) {
+    $("#notifications").append("<div><a href='" + path +"'>New File Available</div>");
+}
 
 fileShareApp.directive('uploadFiles', function () {
     return {
